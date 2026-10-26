@@ -1,0 +1,19 @@
+{
+  "validos": [
+    {"descricao": "CPF sem máscara", "payload": {"nome": "Maria da Silva", "cpf": "52998224725", "dataNascimento": "1990-05-15", "endereco": {"logradouro": "Rua das Flores", "numero": "123", "cep": "69000000", "cidade": "Manaus", "uf": "AM"}}},
+    {"descricao": "CPF com máscara e complemento", "payload": {"nome": "José D'Ávila Çelso", "cpf": "111.444.777-35", "dataNascimento": "1985-12-01", "endereco": {"logradouro": "Av. Djalma Batista", "numero": "1000", "complemento": "Apto 12", "cep": "69050010", "cidade": "Manaus", "uf": "AM"}}},
+    {"descricao": "Nome com 3 caracteres (limite inferior)", "payload": {"nome": "Ana", "cpf": "12345678909", "dataNascimento": "1970-01-31", "endereco": {"logradouro": "Rua A", "numero": "1", "cep": "01001000", "cidade": "São Paulo", "uf": "SP"}}}
+  ],
+  "invalidos": [
+    {"descricao": "CPF com DV errado", "campo": "cpf", "status_esperado": 422, "payload": {"nome": "Carlos Souza", "cpf": "12345678900", "dataNascimento": "1990-05-15", "endereco": {"logradouro": "Rua B", "numero": "2", "cep": "69000000", "cidade": "Manaus", "uf": "AM"}}},
+    {"descricao": "CPF com dígitos repetidos", "campo": "cpf", "status_esperado": 422, "payload": {"nome": "Carlos Souza", "cpf": "11111111111", "dataNascimento": "1990-05-15", "endereco": {"logradouro": "Rua B", "numero": "2", "cep": "69000000", "cidade": "Manaus", "uf": "AM"}}},
+    {"descricao": "CPF com letras", "campo": "cpf", "status_esperado": 422, "payload": {"nome": "Carlos Souza", "cpf": "ABC45678909", "dataNascimento": "1990-05-15", "endereco": {"logradouro": "Rua B", "numero": "2", "cep": "69000000", "cidade": "Manaus", "uf": "AM"}}},
+    {"descricao": "Data de nascimento futura", "campo": "dataNascimento", "status_esperado": 422, "payload": {"nome": "Carlos Souza", "cpf": "52998224725", "dataNascimento": "2999-01-01", "endereco": {"logradouro": "Rua B", "numero": "2", "cep": "69000000", "cidade": "Manaus", "uf": "AM"}}},
+    {"descricao": "Data inexistente", "campo": "dataNascimento", "status_esperado": 422, "payload": {"nome": "Carlos Souza", "cpf": "52998224725", "dataNascimento": "2000-02-31", "endereco": {"logradouro": "Rua B", "numero": "2", "cep": "69000000", "cidade": "Manaus", "uf": "AM"}}},
+    {"descricao": "CEP com 7 dígitos", "campo": "endereco.cep", "status_esperado": 422, "payload": {"nome": "Carlos Souza", "cpf": "52998224725", "dataNascimento": "1990-05-15", "endereco": {"logradouro": "Rua B", "numero": "2", "cep": "6900000", "cidade": "Manaus", "uf": "AM"}}},
+    {"descricao": "UF com 3 letras", "campo": "endereco.uf", "status_esperado": 422, "payload": {"nome": "Carlos Souza", "cpf": "52998224725", "dataNascimento": "1990-05-15", "endereco": {"logradouro": "Rua B", "numero": "2", "cep": "69000000", "cidade": "Manaus", "uf": "AMZ"}}},
+    {"descricao": "Nome vazio", "campo": "nome", "status_esperado": 422, "payload": {"nome": "", "cpf": "52998224725", "dataNascimento": "1990-05-15", "endereco": {"logradouro": "Rua B", "numero": "2", "cep": "69000000", "cidade": "Manaus", "uf": "AM"}}},
+    {"descricao": "Endereço ausente", "campo": "endereco", "status_esperado": 422, "payload": {"nome": "Carlos Souza", "cpf": "52998224725", "dataNascimento": "1990-05-15"}},
+    {"descricao": "Nome nulo", "campo": "nome", "status_esperado": 422, "payload": {"nome": null, "cpf": "52998224725", "dataNascimento": "1990-05-15", "endereco": {"logradouro": "Rua B", "numero": "2", "cep": "69000000", "cidade": "Manaus", "uf": "AM"}}}
+  ]
+}
