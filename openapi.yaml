@@ -1,0 +1,40 @@
+openapi: 3.0.3
+info: {title: API Usuários, version: 1.0.0}
+paths:
+  /usuarios:
+    post:
+      summary: Cria usuário
+      requestBody: {required: true, content: {application/json: {schema: {$ref: '#/components/schemas/UsuarioInput'}}}}
+      responses:
+        '201': {description: Criado}
+        '400': {description: JSON malformado}
+        '409': {description: CPF já cadastrado}
+        '422': {description: Erro de validação}
+    get:
+      summary: Lista usuários
+      responses: {'200': {description: OK}}
+  /usuarios/{id}:
+    parameters: [{name: id, in: path, required: true, schema: {type: string}}]
+    get:  {summary: Busca por id, responses: {'200': {description: OK}, '404': {description: Não encontrado}}}
+    put:  {summary: Atualiza, responses: {'200': {description: OK}, '404': {description: Não encontrado}, '409': {description: CPF duplicado}, '422': {description: Validação}}}
+    delete: {summary: Remove, responses: {'204': {description: Removido}, '404': {description: Não encontrado}}}
+components:
+  schemas:
+    Endereco:
+      type: object
+      required: [logradouro, numero, cep, cidade, uf]
+      properties:
+        logradouro: {type: string}
+        numero: {type: string}
+        complemento: {type: string}
+        cep: {type: string, pattern: '^\d{8}$'}
+        cidade: {type: string}
+        uf: {type: string, minLength: 2, maxLength: 2}
+    UsuarioInput:
+      type: object
+      required: [nome, cpf, dataNascimento, endereco]
+      properties:
+        nome: {type: string, minLength: 3, maxLength: 100}
+        cpf: {type: string, description: '11 dígitos, válido pelos dígitos verificadores, único'}
+        dataNascimento: {type: string, format: date, description: 'Não pode ser futura; idade mínima 18 anos'}
+        endereco: {$ref: '#/components/schemas/Endereco'}
